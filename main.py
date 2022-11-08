@@ -1,16 +1,29 @@
-# This is a sample Python script.
+import tweepy
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main():
+    # Authenticate to Twitter
+    auth = tweepy.OAuthHandler(
+        config.get("api_key"),
+        config.get("api_key_secret")
+    )
+    auth.set_access_token(
+        config.get("access_token"),
+        config.get("access_token_secret")
+    )
 
+    api = tweepy.API(auth)
+
+    try:
+        api.verify_credentials()
+        print("Authentication OK")
+    except:
+        print("Error during authentication")
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    main()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
