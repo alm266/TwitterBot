@@ -15,15 +15,18 @@ def main():
         config.get("access_token_secret")
     )
 
-    api = tweepy.API(auth)
+    api = tweepy.API(auth, wait_on_rate_limit=True)
 
     try:
         api.verify_credentials()
         print("Authentication OK")
     except:
         print("Error during authentication")
+        return
 
-# Press the green button in the gutter to run the script.
+    api.update_status("Test tweet")
+
+
 if __name__ == '__main__':
     main()
 
