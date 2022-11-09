@@ -1,7 +1,13 @@
 import tweepy
 
 from dotenv import dotenv_values
+
+from library.dictionaryOutputHandler import generate_tweet_text
+
 config = dotenv_values(".env")
+
+from PyDictionary import PyDictionary
+dictionary = PyDictionary()
 
 
 def main():
@@ -24,7 +30,9 @@ def main():
         print("Error during authentication")
         return
 
-    api.update_status("Test tweet")
+    tweet_string = generate_tweet_text()
+    api.update_status(tweet_string)
+    print(tweet_string)
 
 
 if __name__ == '__main__':
